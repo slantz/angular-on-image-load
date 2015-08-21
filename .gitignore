@@ -2,7 +2,7 @@
 .folder
 
 # NodeJS
-angular-on-image-load/gulp/node_modules/
+gulp/node_modules/
 
 #Jetbrains Idea
 .idea/
