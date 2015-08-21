@@ -1,0 +1,17 @@
+# Windows folder file
+.folder
+
+# NodeJS
+angular-on-image-load/gulp/node_modules/
+
+#Jetbrains Idea
+.idea/
+out/
+*.iml
+*.ipr
+*.iws
+*.ids
+
+# backup files
+*.*~
+*.bak
