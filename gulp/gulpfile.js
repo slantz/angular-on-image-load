@@ -3,6 +3,7 @@ var coffee = require('gulp-coffee');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var ngAnnotate  = require('gulp-ng-annotate');
+var rename = require("gulp-rename");
 
 var pkg = require('./package.json');
 
@@ -30,7 +31,7 @@ gulp.task('js-dev-app', function() {
   return gulp.src([
     '../src/assets/coffee/'+pkg.name+'.coffee',
   ])
-  .pipe(coffee().on('error', gutil.log))
+  .pipe(coffee())
   .pipe(ngAnnotate({
     sourcemap: true
   }))
@@ -41,12 +42,11 @@ gulp.task('js-dev-app', function() {
     }
   }))
   .pipe(rename({
-    basename: pkg.name+'.app',
+    basename: pkg.name,
     suffix: '.min',
     extname: ".js"
   }))
   .pipe(gulp.dest('../dist/js'))
-  .pipe(livereload());
 });
 
 gulp.task('js-dev', ['js-dev-app']);
