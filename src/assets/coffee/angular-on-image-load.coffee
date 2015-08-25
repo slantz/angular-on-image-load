@@ -4,9 +4,7 @@ angular.module('angular.on.image.load').directive 'onImageLoad',
     link: (scope, ele, attrs) ->
       loadingClasses = attrs.onImageLoad
       emitLoaded = ->
-        $timeout ->
-          scope.$emit 'ngSrcImageLoaded', ele, loadingClasses
-        , 0
+        scope.$emit 'ngSrcImageLoaded', ele, loadingClasses
       init = (unbind)->
         if unbind
           ele.unbind 'load'
@@ -14,15 +12,17 @@ angular.module('angular.on.image.load').directive 'onImageLoad',
         if ele[0].tagName.toLowerCase() isnt 'img'
           emitLoaded()
         else
-          unless ele[0].complete
-            ele.bind 'load', ->
+          $timeout ->
+            unless ele[0].complete
+              ele.bind 'load', ->
+                emitLoaded()
+                return
+              ele.bind 'error', ->
+                emitLoaded()
+                return
+            else
               emitLoaded()
-              return
-            ele.bind 'error', ->
-              emitLoaded()
-              return
-          else
-            emitLoaded()
+          , 0
 
       if attrs.ngSrc
         attrs.$observe "ngSrc", ->
